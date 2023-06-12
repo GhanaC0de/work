@@ -2,13 +2,17 @@ import React, { useState } from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import axios from 'axios';
 import { loginUser } from '../loginReducer';
+import {fetchProducts} from '../productsReducer';
 
 const Counter = () => {
   const dispatch = useDispatch();
   const counter = useSelector(state => state.counter.counter)
+  // const productsList = useSelector(state => state.products.products)
+  // const errorMsg = useSelector(state => state.products.error)
   const recievedToken = useSelector(state => state.login.token)
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  dispatch(fetchProducts())
   const loginHandler = (e) => {
     e.preventDefault();
     // axios.post('https://fakestoreapi.com/auth/login',{username,password})
@@ -16,6 +20,8 @@ const Counter = () => {
     dispatch(loginUser(username,password))
     console.log(recievedToken)
   }
+  // console.log(productsList)
+  // console.log(errorMsg)
   return (
     <div>
       <h1>Counter: {counter}</h1>
